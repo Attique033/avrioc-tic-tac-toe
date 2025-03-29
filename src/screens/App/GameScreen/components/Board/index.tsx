@@ -1,8 +1,8 @@
 import React, { memo, useCallback } from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
-import { Surface } from 'react-native-paper';
 import { colors } from '../../../../../theme/colors';
 import Icon from 'react-native-vector-icons/Feather';
+import { BlurView } from 'expo-blur';
 
 interface BoardProps {
   board: number[];
@@ -30,14 +30,15 @@ const Board: React.FC<BoardProps> = ({ board = emptyBoard, onCellPress }) => {
   return (
     <View style={styles.grid}>
       {board?.map((cell, index) => (
-        <Surface
+        <BlurView
+          tint={'light'}
+          intensity={80}
           key={`${index}`}
           style={[styles.cell, { width: cellSize, height: cellSize }]}
           onTouchEnd={() => onCellPress(index)}
-          elevation={1}
         >
           {getCellIcon(cell)}
-        </Surface>
+        </BlurView>
       ))}
     </View>
   );
@@ -53,8 +54,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
+    overflow: 'hidden',
     margin: 8,
-    backgroundColor: colors.background,
   },
   cellText: {
     color: colors.primary,

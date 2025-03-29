@@ -20,17 +20,9 @@ export const gameSlice = createSlice({
       state.currentPlayer = currentPlayer;
       state.winner = winner;
     },
-    setBoard: (state, action) => {
-      const board = action.payload;
-      state.board = typeof board === 'string' ? JSON.parse(board) : board;
-    },
-    setGameStatus: (state, action) => {
-      state.status = action.payload;
-    },
     setSessionId: (state, action) => {
       state.sessionId = action.payload;
     },
-    resetGameSession: () => initialState,
   },
 });
 

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Board from './components/Board';
 import { colors } from '../../../theme/colors';
@@ -7,8 +7,9 @@ import { useGameActions } from '../../../store/game/useGameActions';
 import { useAppSelector } from '../../../store';
 import { GameStatus, Player } from '../../../types';
 import Icon from 'react-native-vector-icons/Feather';
-import { Images } from '../../../assets/images';
 import { useAuth } from '../../../context/AuthContext';
+import { BlurView } from 'expo-blur';
+import BackgroundImage from '../../../components/BackgroundImage';
 
 const GameScreen: React.FC = () => {
   const { createNewSession, makeMove } = useGameActions();
@@ -59,21 +60,22 @@ const GameScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={Images.GameBackground} style={styles.bgImage} resizeMode="cover" />
-      <ImageBackground style={styles.bgOverlay} resizeMode="cover" />
-      <Text variant="headlineMedium" style={styles.title}>
+      <BackgroundImage />
+      <Text variant="titleLarge" style={styles.title}>
         Tic Tac Toe
       </Text>
       <Text variant="bodyLarge" style={styles.status}>
         {statusText}
       </Text>
       <Board board={board.flat(1)} onCellPress={handleCellPress} />
-      <TouchableOpacity onPress={resetGame} style={styles.gameAction}>
-        <Icon
-          name={sessionId && !winner ? 'rotate-cw' : 'play-circle'}
-          size={50}
-          color={colors.primary}
-        />
+      <TouchableOpacity onPress={resetGame}>
+        <BlurView tint={'light'} intensity={80} style={styles.gameAction}>
+          <Icon
+            name={sessionId && !winner ? 'rotate-cw' : 'play-circle'}
+            size={50}
+            color={colors.primary}
+          />
+        </BlurView>
       </TouchableOpacity>
     </View>
   );
@@ -85,25 +87,13 @@ const styles = StyleSheet.create({
     padding: 16,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  bgImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  bgOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: colors.transparentBlack,
+    backgroundColor: colors.background,
   },
   title: {
     marginBottom: 24,
     color: colors.primary,
+    fontWeight: 'bold',
+    fontSize: 24,
   },
   status: {
     marginBottom: 24,
@@ -114,7 +104,7 @@ const styles = StyleSheet.create({
     color: colors.primary,
     padding: 20,
     borderRadius: 8,
-    backgroundColor: colors.transparentWhite,
+    overflow: 'hidden',
   },
 });
 

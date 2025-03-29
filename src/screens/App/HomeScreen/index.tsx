@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StatsScreen from '../StatsScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../../theme/colors';
+import { BlurView } from 'expo-blur';
 
 const Tab = createBottomTabNavigator();
 
@@ -26,9 +27,21 @@ const HomeScreen: React.FC = () => {
             <Icon
               name={TabIcons[focused ? 'Focused' : 'Unfocused'][route.name]}
               size={size}
-              color={!focused ? colors.text.secondary : color}
+              color={!focused ? colors.text.secondary : colors.primary}
             />
           );
+        },
+        tabBarActiveTintColor: colors.primary,
+        lazy: true,
+        tabBarStyle: {
+          position: 'absolute',
+          backgroundColor: 'transparent',
+          borderTopWidth: 0,
+          elevation: 0,
+          shadowColor: 'transparent',
+        },
+        tabBarBackground: () => {
+          return <BlurView tint={'light'} intensity={55} style={{ flex: 1 }} />;
         },
       })}
     >

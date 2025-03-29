@@ -1,12 +1,13 @@
 export const colors = {
-  primary: '#4A90E2',
-  secondary: '#b3b5b6',
-  background: '#FFFFFF',
-  surface: '#F8F9FA',
-  transparentWhite: 'rgba(255, 255, 255, 0.3)',
-  transparentBlack: 'rgba(0, 0, 0, 0.4)',
+  primary: 'white',
+  secondary: 'white',
+  background: 'transparent',
+  backgroundDark: '#000',
+  surface: '#5c0606',
+  transparentWhite: '#5c0606',
+  transparentBlack: '#5c0606',
   text: {
-    primary: '#212529',
+    primary: 'white',
     secondary: '#b3b5b6',
     light: '#FFFFFF',
   },
@@ -16,10 +17,10 @@ export const colors = {
   input: {
     background: '#FFFFFF',
     border: '#DEE2E6',
-    focus: '#4A90E2',
+    focus: 'white',
   },
   button: {
-    primary: '#4A90E2',
+    primary: 'white',
     secondary: '#b3b5b6',
     text: '#FFFFFF',
   },
