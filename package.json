@@ -17,6 +17,7 @@
     "axios": "^1.8.4",
     "expo": "~52.0.41",
     "expo-secure-store": "~14.0.1",
+    "expo-splash-screen": "^0.29.22",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
     "react-native": "0.76.7",

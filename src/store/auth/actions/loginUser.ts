@@ -3,6 +3,7 @@ import {authSlice} from '../index';
 import {authService} from '../../../services/api';
 import {LoginUserRequest, NotificationType} from '../../../types';
 import {notificationSlice} from "../../notification";
+import {saveUserData} from "../../../utils/storage/Auth";
 
 type LoginUser = (
   params: LoginUserRequest,
@@ -12,9 +13,8 @@ export const loginUser: LoginUser = params => {
   return async dispatch => {
     try {
       dispatch(authSlice.actions.setLoading(true));
-      console.error('login req', params)
       const data = await authService.login(params);
-        console.error('login res', data)
+      await saveUserData(data);
       dispatch(authSlice.actions.setSession(data));
     } catch (error) {
         console.error(error);

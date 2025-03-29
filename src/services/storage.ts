@@ -8,11 +8,17 @@ export const setSecureStorage = async (key: StorageKeys, value: string) => {
 };
 
 export const getSecureStorage = async (key: StorageKeys) => {
-  SecureStore.getItemAsync(key).then((value) => {
+  try {
+    const value = await SecureStore.getItemAsync(key);
+    if (value === null) {
+      console.log(`No value found for key: ${key}`);
+      return null;
+    }
     return value;
-  }).catch((error) => {
+  } catch (error) {
     console.error(`Error getting secure storage for ${key}`, error);
-  })
+    return null;
+  }
 };
 
 export const removeSecureStorage = async (key: StorageKeys) => {
