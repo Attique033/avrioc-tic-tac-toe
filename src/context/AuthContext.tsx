@@ -1,7 +1,7 @@
-import React, {createContext, ReactNode, useContext} from 'react';
-import {LoginUserRequest, RegisterUserRequest} from '../types';
-import {useAuthActions} from '../store/auth/useAuthActions';
-import {useAppSelector} from '../store';
+import React, { createContext, ReactNode, useContext } from 'react';
+import { LoginUserRequest, RegisterUserRequest } from '../types';
+import { useAuthActions } from '../store/auth/useAuthActions';
+import { useAppSelector } from '../store';
 
 type AuthContextType = {
   isAuthenticated: boolean;
@@ -12,13 +12,12 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({children}: {children: ReactNode}) => {
-  const {loginUser, registerUser, logoutUser} = useAuthActions();
-  const {isAuthenticated} = useAppSelector(state => state.auth);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
+  const { loginUser, registerUser, logoutUser } = useAuthActions();
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
 
   return (
-    <AuthContext.Provider
-      value={{isAuthenticated, loginUser, registerUser, logoutUser}}>
+    <AuthContext.Provider value={{ isAuthenticated, loginUser, registerUser, logoutUser }}>
       {children}
     </AuthContext.Provider>
   );

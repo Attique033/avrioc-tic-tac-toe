@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {ScrollView, StyleSheet, View} from 'react-native';
-import {Button, Text, TextInput} from 'react-native-paper';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {useAuthActions} from "../../../store/auth/useAuthActions";
-import {REGEX} from "../../../utils/constants";
+import React, { useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { Button, Text, TextInput } from 'react-native-paper';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuthActions } from '../../../store/auth/useAuthActions';
+import { REGEX } from '../../../utils/constants';
 
 const RegisterScreen = ({ navigation }: any) => {
   const [name, setName] = useState('');
@@ -17,7 +17,7 @@ const RegisterScreen = ({ navigation }: any) => {
     confirmPassword: '',
   });
 
-  const {registerUser} = useAuthActions();
+  const { registerUser } = useAuthActions();
 
   const handleRegister = () => {
     // Reset errors
@@ -30,35 +30,35 @@ const RegisterScreen = ({ navigation }: any) => {
 
     // Basic validation
     if (!name) {
-      setErrors(prev => ({ ...prev, name: 'Name is required' }));
+      setErrors((prev) => ({ ...prev, name: 'Name is required' }));
       return;
     }
     if (!email) {
-      setErrors(prev => ({ ...prev, email: 'Email is required' }));
+      setErrors((prev) => ({ ...prev, email: 'Email is required' }));
       return;
     }
     if (!REGEX.EMAIL.test(email)) {
-      setErrors(prev => ({ ...prev, email: 'Invalid email ' }));
+      setErrors((prev) => ({ ...prev, email: 'Invalid email ' }));
       return;
     }
     if (!password) {
-      setErrors(prev => ({ ...prev, password: 'Password is required' }));
+      setErrors((prev) => ({ ...prev, password: 'Password is required' }));
       return;
     }
     if (password.length < 8) {
-        setErrors(prev => ({ ...prev, password: 'Password must be at least 8 characters long' }));
-        return;
+      setErrors((prev) => ({ ...prev, password: 'Password must be at least 8 characters long' }));
+      return;
     }
     if (!confirmPassword) {
-      setErrors(prev => ({ ...prev, confirmPassword: 'Please confirm your password' }));
+      setErrors((prev) => ({ ...prev, confirmPassword: 'Please confirm your password' }));
       return;
     }
     if (password !== confirmPassword) {
-      setErrors(prev => ({ ...prev, confirmPassword: 'Passwords do not match' }));
+      setErrors((prev) => ({ ...prev, confirmPassword: 'Passwords do not match' }));
       return;
     }
 
-    registerUser({name, email, password})
+    registerUser({ name, email, password });
   };
 
   return (
@@ -132,21 +132,13 @@ const RegisterScreen = ({ navigation }: any) => {
             </Text>
           ) : null}
 
-          <Button
-            mode="contained"
-            onPress={handleRegister}
-            style={styles.button}
-          >
+          <Button mode="contained" onPress={handleRegister} style={styles.button}>
             Sign Up
           </Button>
 
           <View style={styles.footer}>
             <Text variant="bodyMedium">Already have an account? </Text>
-            <Text
-              variant="bodyMedium"
-              style={styles.link}
-              onPress={() => navigation.goBack()}
-            >
+            <Text variant="bodyMedium" style={styles.link} onPress={() => navigation.goBack()}>
               Sign In
             </Text>
           </View>

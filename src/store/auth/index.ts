@@ -1,5 +1,5 @@
-import {createSlice} from '@reduxjs/toolkit';
-import {User} from '../../types';
+import { createSlice } from '@reduxjs/toolkit';
+import { User } from '../../types';
 
 type AuthState = {
   user?: User;

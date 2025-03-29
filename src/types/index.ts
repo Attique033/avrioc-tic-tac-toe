@@ -31,9 +31,11 @@ export enum Player {
   O = 'o',
 }
 
+type Board = number[][];
+
 export interface GameState {
   sessionId?: string;
-  board: string[][];
+  board: Board;
   gameStatus?: GameStatus;
   currentPlayer?: Player;
   winner?: Player;
@@ -47,9 +49,9 @@ export interface GameStats {
 }
 
 export enum NotificationType {
-    ERROR = 'error',
-    SUCCESS = 'success',
-    INFO = 'info',
+  ERROR = 'error',
+  SUCCESS = 'success',
+  INFO = 'info',
 }
 
 export interface Notification {
@@ -60,14 +62,25 @@ export interface Notification {
 
 export interface GameSession {
   id: number;
-  board: string[][];
-    currentPlayer: Player;
-    status: GameStatus;
-    winner?: Player;
-    userId: string;
+  board: Board;
+  currentPlayer: Player;
+  status: GameStatus;
+  winner?: Player;
+  userId: string;
 }
 
 export interface MakeMoveRequest {
-  board: string[][],
-  sessionId: string,
+  board: Board;
+  sessionId: string;
+}
+
+export interface EngineMoveRequest {
+  board: Board;
+  current_player: Player;
+}
+
+export interface EngineMoveResponse {
+  nextMove: number;
+  board: Board;
+  gameStatus: GameStatus;
 }

@@ -21,4 +21,4 @@ export const colors = {
     secondary: '#6C757D',
     text: '#FFFFFF',
   },
-} as const; 
+} as const;

@@ -1,8 +1,8 @@
-import {useMemo} from 'react';
+import { useMemo } from 'react';
 
-import {LoginUserRequest, RegisterUserRequest, UserSession} from '../../types';
-import {useAppDispatch} from '../index';
-import {loginUser, logoutUser, registerUser} from './actions';
+import { LoginUserRequest, RegisterUserRequest, UserSession } from '../../types';
+import { useAppDispatch } from '../index';
+import { loginUser, logoutUser, registerUser } from './actions';
 import { authSlice } from '.';
 
 export const useAuthActions = () => {
