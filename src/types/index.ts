@@ -27,8 +27,8 @@ export enum GameStatus {
 }
 
 export enum Player {
-  X = 'X',
-  O = 'O',
+  X = 'x',
+  O = 'o',
 }
 
 export interface GameState {
@@ -56,4 +56,18 @@ export interface Notification {
   type: NotificationType;
   title: string;
   message?: string;
+}
+
+export interface GameSession {
+  id: number;
+  board: string[][];
+    currentPlayer: Player;
+    status: GameStatus;
+    winner?: Player;
+    userId: string;
+}
+
+export interface MakeMoveRequest {
+  board: string[][],
+  sessionId: string,
 }

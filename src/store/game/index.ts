@@ -20,6 +20,9 @@ export const gameSlice = createSlice({
       state.currentPlayer = currentPlayer;
       state.winner = winner;
     },
+    setSessionId: (state, action) => {
+      state.sessionId = action.payload;
+    },
     resetGameSession: () => initialState,
   },
 });

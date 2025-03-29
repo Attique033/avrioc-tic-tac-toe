@@ -1,5 +1,14 @@
-import axios, {InternalAxiosRequestConfig} from 'axios';
-import {GameState, GameStats, LoginUserRequest, RegisterUserRequest, UserSession,} from '../types';
+import axios, {AxiosResponse, InternalAxiosRequestConfig} from 'axios';
+import {
+  GameSession,
+  GameState,
+  GameStats,
+  GameStatus,
+  LoginUserRequest,
+  MakeMoveRequest,
+  RegisterUserRequest,
+  UserSession,
+} from '../types';
 import {config as envConfig} from '../config';
 import {getSessionToken} from '../utils/storage/Auth';
 
@@ -10,8 +19,8 @@ const api = axios.create({
   },
 });
 
-api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  const token = getSessionToken();
+api.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
+  const token = await getSessionToken();
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -33,8 +42,8 @@ export const authService = {
 };
 
 export const gameService = {
-  startGame: async (playerStarts: boolean = true) => {
-    const response = await api.post<{gameState: GameState; sessionId: string}>(
+  createGameSession: async (playerStarts: boolean = true) => {
+    const response: AxiosResponse<GameSession> = await api.post(
       '/game/create_game_session',
       {
         startWithPlayer: playerStarts,
@@ -43,27 +52,24 @@ export const gameService = {
     return response.data;
   },
 
-  makeMove: async (row: number, col: number, sessionId: string) => {
-    const response = await api.post<{gameState: GameState}>(
+  makeMove: async (payload: MakeMoveRequest) => {
+    const response: AxiosResponse<{status: GameStatus}> = await api.post(
       '/game/player_move',
-      {
-        row,
-        col,
-        sessionId,
-      },
+        payload,
     );
     return response.data;
   },
 
-  pcMove: async (row: number, col: number, sessionId: string) => {
+  pcMove: async (payload: MakeMoveRequest) => {
     const response = await api.post<{gameState: GameState}>(
         '/game/pc_move',
+        payload
     );
     return response.data;
   },
 
   getGameState: async (sessionId: string) => {
-    const response = await api.get<{gameState: GameState}>('/game', {
+    const response: AxiosResponse<GameSession> = await api.get('/game', {
       params: {sessionId},
     });
     return response.data;
