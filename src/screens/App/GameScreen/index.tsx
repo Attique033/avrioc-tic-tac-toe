@@ -1,16 +1,20 @@
 import React, { useCallback, useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Board from './components/Board';
 import { colors } from '../../../theme/colors';
 import { useGameActions } from '../../../store/game/useGameActions';
 import { useAppSelector } from '../../../store';
 import { GameStatus, Player } from '../../../types';
+import Icon from 'react-native-vector-icons/Feather';
+import { Images } from '../../../assets/images';
+import { useAuth } from '../../../context/AuthContext';
 
 const GameScreen: React.FC = () => {
   const { createNewSession, makeMove } = useGameActions();
 
   const { sessionId, board, winner, status, currentPlayer } = useAppSelector((state) => state.game);
+  const { user } = useAuth();
 
   const setupNewGame = useCallback(() => {
     createNewSession(false);
@@ -20,9 +24,9 @@ const GameScreen: React.FC = () => {
     if (!sessionId) {
       return 'Lets start a new game!';
     }
-    const playerName = currentPlayer === Player.O ? 'Your' : 'AI';
+    const playerName = currentPlayer === Player.O ? user.name : 'AI';
     if (status === GameStatus.ONGOING) {
-      return `${playerName} turn`;
+      return `${playerName}'s turn`;
     }
     if (!!winner) {
       return `${winner} wins!`;
@@ -55,6 +59,8 @@ const GameScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <ImageBackground source={Images.GameBackground} style={styles.bgImage} resizeMode="cover" />
+      <ImageBackground style={styles.bgOverlay} resizeMode="cover" />
       <Text variant="headlineMedium" style={styles.title}>
         Tic Tac Toe
       </Text>
@@ -62,9 +68,13 @@ const GameScreen: React.FC = () => {
         {statusText}
       </Text>
       <Board board={board.flat(1)} onCellPress={handleCellPress} />
-      <Text variant="bodyLarge" style={styles.resetButton} onPress={resetGame}>
-        Reset Game
-      </Text>
+      <TouchableOpacity onPress={resetGame} style={styles.gameAction}>
+        <Icon
+          name={sessionId && !winner ? 'rotate-cw' : 'play-circle'}
+          size={50}
+          color={colors.primary}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -75,7 +85,21 @@ const styles = StyleSheet.create({
     padding: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.background,
+  },
+  bgImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  bgOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: colors.transparentBlack,
   },
   title: {
     marginBottom: 24,
@@ -85,10 +109,12 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     color: colors.text.secondary,
   },
-  resetButton: {
+  gameAction: {
     marginTop: 24,
     color: colors.primary,
-    textDecorationLine: 'underline',
+    padding: 20,
+    borderRadius: 8,
+    backgroundColor: colors.transparentWhite,
   },
 });
 
