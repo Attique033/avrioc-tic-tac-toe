@@ -15,9 +15,9 @@ const cellSize = width / 3 - width * 0.07;
 
 const getCellText = (cell: number) => {
   switch (cell) {
-    case 1:
-      return 'X';
     case -1:
+      return 'X';
+    case 1:
       return 'O';
     default:
       return '';

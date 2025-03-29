@@ -36,7 +36,7 @@ type Board = number[][];
 export interface GameState {
   sessionId?: string;
   board: Board;
-  gameStatus?: GameStatus;
+  status?: GameStatus;
   currentPlayer?: Player;
   winner?: Player;
 }
@@ -77,5 +77,5 @@ export interface MakeMoveRequest {
 export interface EngineMoveResponse {
   nextMove: number;
   board: Board;
-  gameStatus: GameStatus;
+  status: GameStatus;
 }

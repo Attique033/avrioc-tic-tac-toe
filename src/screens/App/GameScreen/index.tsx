@@ -10,44 +10,37 @@ import { GameStatus, Player } from '../../../types';
 const GameScreen: React.FC = () => {
   const { createNewSession, makeMove } = useGameActions();
 
-  const { sessionId, board, winner, gameStatus, currentPlayer } = useAppSelector(
-    (state) => state.game
-  );
+  const { sessionId, board, winner, status, currentPlayer } = useAppSelector((state) => state.game);
 
   const setupNewGame = useCallback(() => {
     createNewSession(false);
   }, []);
 
-  // useEffect(() => {
-  //   createNewSession(false);
-  // }, [createNewSession]);
-
   const statusText = useMemo(() => {
     if (!sessionId) {
       return 'Lets start a new game!';
     }
-    const playerName = currentPlayer === Player.X ? 'Your' : 'AI';
-    if (gameStatus === GameStatus.ONGOING) {
+    const playerName = currentPlayer === Player.O ? 'Your' : 'AI';
+    if (status === GameStatus.ONGOING) {
       return `${playerName} turn`;
     }
-    if (gameStatus === GameStatus.WON) {
-      return `${playerName} wins!`;
+    if (!!winner) {
+      return `${winner} wins!`;
     }
-    if (!gameStatus) {
+    if (!status) {
       return 'Game is still ongoing';
     }
     return `It's a draw!`;
-  }, [gameStatus, currentPlayer]);
+  }, [status, currentPlayer]);
 
   const handleCellPress = (index: number) => {
-    if (winner || !!board[index]) {
-      return;
-    }
     const row = Math.floor(index / 3);
     const col = index % 3;
-    const value = currentPlayer === Player.X ? 1 : -1;
+    if (winner || !!board[row][col]) {
+      return;
+    }
     const newBoard = board.map((r, rowIndex) =>
-      r.map((cell, colIndex) => (rowIndex === row && colIndex === col ? value : cell))
+      r.map((cell, colIndex) => (rowIndex === row && colIndex === col ? -1 : cell))
     );
 
     makeMove({

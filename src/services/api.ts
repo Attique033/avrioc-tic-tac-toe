@@ -20,13 +20,6 @@ const api = axios.create({
   },
 });
 
-const engineApi = axios.create({
-  baseURL: envConfig.gameEngineUrl,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
-
 api.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
   const token = await getSessionToken();
   if (token && config.headers) {
@@ -38,13 +31,11 @@ api.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
 export const authService = {
   login: async (params: LoginUserRequest): Promise<UserSession> => {
     const response = await api.post<UserSession>('/auth/login', params);
-    console.error('login res', response);
     return response.data;
   },
 
   register: async (params: RegisterUserRequest): Promise<UserSession> => {
     const response = await api.post<UserSession>('/auth/register', params);
-    console.error('register res', response);
     return response.data;
   },
 };
@@ -63,24 +54,6 @@ export const gameService = {
       payload
     );
     return response.data;
-  },
-
-  getEngineMove: async (payload: MakeMoveRequest) => {
-    console.error('getEngineMove', payload);
-    engineApi
-      .post('/check_game_state', payload)
-      .then((res) => {
-        console.error('engine res', res);
-      })
-      .catch((err) => {
-        console.error('engine error', err, err.data, err.response.data);
-      });
-    // const response: AxiosResponse<{status: EngineMoveResponse}> = await engineApi.post(
-    //   '/check_game_state',
-    //     payload,
-    // );
-    // console.error('engine try',response, payload);
-    // return response.data;
   },
 
   pcMove: async (payload: MakeMoveRequest) => {

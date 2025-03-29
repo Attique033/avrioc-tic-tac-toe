@@ -14,19 +14,18 @@ export const gameSlice = createSlice({
   initialState,
   reducers: {
     setGameState: (state, action) => {
-      const { board, gameStatus, currentPlayer, winner } = action.payload;
+      const { board, status, currentPlayer, winner } = action.payload;
       state.board = typeof board === 'string' ? JSON.parse(board) : board;
-      state.gameStatus = gameStatus;
+      state.status = status;
       state.currentPlayer = currentPlayer;
       state.winner = winner;
     },
     setBoard: (state, action) => {
       const board = action.payload;
-      console.error('setBoard', board);
       state.board = typeof board === 'string' ? JSON.parse(board) : board;
     },
     setGameStatus: (state, action) => {
-      state.gameStatus = action.payload;
+      state.status = action.payload;
     },
     setSessionId: (state, action) => {
       state.sessionId = action.payload;

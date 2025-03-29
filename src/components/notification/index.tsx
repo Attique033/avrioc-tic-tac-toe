@@ -1,59 +1,27 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { IconButton, Surface, Text } from 'react-native-paper';
-import Animated, {
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-  withTiming,
-} from 'react-native-reanimated';
 import { useAppSelector } from '../../store';
 import { useNotificationActions } from '../../store/notification/useNotificationActions';
 
-const PROGRESS_DURATION = 3000; // 3 seconds
+const PROGRESS_DURATION = 3000;
 
 export const NotificationBanner: React.FC = () => {
   const { notification } = useAppSelector((state) => state.notification);
 
   const { resetNotification } = useNotificationActions();
 
-  const translateY = useSharedValue(-100);
-  const opacity = useSharedValue(0);
-  const progress = useSharedValue(1);
-
   useEffect(() => {
-    if (notification?.title) {
-      // Animate in
-      translateY.value = withSpring(0, { damping: 15 });
-      opacity.value = withTiming(1, { duration: 300 });
+    const timer = setTimeout(() => {
+      resetNotification();
+    }, PROGRESS_DURATION);
 
-      // Start progress animation
-      progress.value = withTiming(0, { duration: PROGRESS_DURATION }, () => {
-        runOnJS(dismiss)();
-      });
-    }
-  }, [notification?.title]);
+    return () => clearTimeout(timer);
+  });
 
   const dismiss = () => {
-    translateY.value = withSpring(-100, { damping: 15 });
-    opacity.value = withTiming(0, { duration: 300 }, () => {
-      resetNotification();
-    });
+    resetNotification();
   };
-
-  const bannerStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateY: translateY.value }],
-      opacity: opacity.value,
-    };
-  });
-
-  const progressStyle = useAnimatedStyle(() => {
-    return {
-      width: `${progress.value * 100}%`,
-    };
-  });
 
   const getBackgroundColor = () => {
     switch (notification?.type) {
@@ -80,10 +48,10 @@ export const NotificationBanner: React.FC = () => {
   if (!notification || !notification?.title) return null;
 
   return (
-    <Animated.View style={[styles.container, bannerStyle]}>
+    <View style={[styles.container, { display: notification ? 'flex' : 'none' }]}>
       <Surface style={[styles.banner, { backgroundColor: getBackgroundColor() }]}>
-        <Animated.View style={[styles.progressBar, progressStyle]} />
-        <Animated.View style={styles.content}>
+        <View style={[styles.progressBar]} />
+        <View style={styles.content}>
           <IconButton icon={getIcon()} size={24} iconColor="white" style={styles.icon} />
           <View>
             {notification.message && (
@@ -105,9 +73,9 @@ export const NotificationBanner: React.FC = () => {
             onPress={dismiss}
             style={styles.closeButton}
           />
-        </Animated.View>
+        </View>
       </Surface>
-    </Animated.View>
+    </View>
   );
 };
 

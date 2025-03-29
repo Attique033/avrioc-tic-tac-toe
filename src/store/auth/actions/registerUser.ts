@@ -11,12 +11,10 @@ export const registerUser: RegisterUser = (params) => {
   return async (dispatch) => {
     try {
       dispatch(authSlice.actions.setLoading(true));
-      console.error('registerUser', params);
       const data = await authService.register(params);
       await saveUserData(data);
       dispatch(authSlice.actions.setSession(data));
     } catch (error) {
-      console.error('registerUser error', error);
       dispatch(
         notificationSlice.actions.setNotification({
           title: 'Registration failed',
