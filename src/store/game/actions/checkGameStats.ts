@@ -1,8 +1,9 @@
 import { AppDispatch, GetState } from '../../types';
 import { gameService } from '../../../services/api';
 import { gameSlice } from '../index';
-import { GameStatus, Player } from '../../../types';
+import { GameStatus, NotificationType, Player } from '../../../types';
 import { makePCMove } from './makePCMove';
+import { notificationSlice } from '../../notification';
 
 type CheckGameState = () => (dispatch: AppDispatch, getState: GetState) => Promise<void>;
 
@@ -16,7 +17,14 @@ export const checkGameState: CheckGameState = () => {
         dispatch(makePCMove());
       }
     } catch (error) {
-      console.error(error, error.data, error.response.data);
+      const errorMessage = error?.response?.data?.error || error?.message || 'Something went wrong';
+      dispatch(
+        notificationSlice.actions.setNotification({
+          title: "Oops! That's an error",
+          message: errorMessage,
+          type: NotificationType.ERROR,
+        })
+      );
     }
   };
 };

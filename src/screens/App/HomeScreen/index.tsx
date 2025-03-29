@@ -3,6 +3,7 @@ import GameScreen from '../GameScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import StatsScreen from '../StatsScreen';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { colors } from '../../../theme/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -25,7 +26,7 @@ const HomeScreen: React.FC = () => {
             <Icon
               name={TabIcons[focused ? 'Focused' : 'Unfocused'][route.name]}
               size={size}
-              color={!focused ? '#8c8c8c' : color}
+              color={!focused ? colors.text.secondary : color}
             />
           );
         },

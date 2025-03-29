@@ -15,11 +15,11 @@ export const loginUser: LoginUser = (params) => {
       await saveUserData(data);
       dispatch(authSlice.actions.setSession(data));
     } catch (error) {
-      console.error(error);
+      const errorMessage = error?.response?.data?.error || error?.message || 'Something went wrong';
       dispatch(
         notificationSlice.actions.setNotification({
           title: 'Login failed',
-          message: error.message || 'Something went wrong',
+          message: errorMessage,
           type: NotificationType.ERROR,
         })
       );

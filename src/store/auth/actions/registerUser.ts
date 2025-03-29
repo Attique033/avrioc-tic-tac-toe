@@ -15,10 +15,11 @@ export const registerUser: RegisterUser = (params) => {
       await saveUserData(data);
       dispatch(authSlice.actions.setSession(data));
     } catch (error) {
+      const errorMessage = error?.response?.data?.error || error?.message || 'Something went wrong';
       dispatch(
         notificationSlice.actions.setNotification({
           title: 'Registration failed',
-          message: error.message || 'Something went wrong',
+          message: errorMessage,
           type: NotificationType.ERROR,
         })
       );

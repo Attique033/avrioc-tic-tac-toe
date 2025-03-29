@@ -4,6 +4,7 @@ import { Button, Text, TextInput } from 'react-native-paper';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { REGEX } from '../../../utils/constants';
 import { useAuthActions } from '../../../store/auth/useAuthActions';
+import { colors } from '../../../theme/colors';
 
 const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -103,7 +104,7 @@ const styles = StyleSheet.create({
     padding: 20,
     margin: 16,
     borderRadius: 12,
-    backgroundColor: 'white',
+    backgroundColor: colors.background,
     elevation: 2,
     boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
   },
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   errorText: {
-    color: '#DC3545',
+    color: colors.error,
     marginBottom: 16,
   },
   button: {
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   link: {
-    color: '#4A90E2',
+    color: colors.primary,
   },
 });
 

@@ -14,7 +14,7 @@ export const notificationSlice = createSlice({
   initialState,
   reducers: {
     setNotification: (state, action) => {
-      state.notification = action.payload.notification;
+      state.notification = action.payload;
     },
     clearNotification: (state) => {
       state.notification = undefined;
