@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Board from './components/Board';
@@ -15,12 +15,12 @@ const GameScreen: React.FC = () => {
   );
 
   const setupNewGame = useCallback(() => {
-    createNewSession(true);
+    createNewSession(false);
   }, []);
 
-  useEffect(() => {
-    createNewSession(true);
-  }, [createNewSession]);
+  // useEffect(() => {
+  //   createNewSession(false);
+  // }, [createNewSession]);
 
   const statusText = useMemo(() => {
     if (!sessionId) {

@@ -74,11 +74,6 @@ export interface MakeMoveRequest {
   sessionId: string;
 }
 
-export interface EngineMoveRequest {
-  board: Board;
-  current_player: Player;
-}
-
 export interface EngineMoveResponse {
   nextMove: number;
   board: Board;

@@ -1,6 +1,5 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import {
-  EngineMoveRequest,
   EngineMoveResponse,
   GameSession,
   GameState,
@@ -66,7 +65,7 @@ export const gameService = {
     return response.data;
   },
 
-  getEngineMove: async (payload: EngineMoveRequest) => {
+  getEngineMove: async (payload: MakeMoveRequest) => {
     console.error('getEngineMove', payload);
     engineApi
       .post('/check_game_state', payload)

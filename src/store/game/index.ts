@@ -21,7 +21,8 @@ export const gameSlice = createSlice({
       state.winner = winner;
     },
     setBoard: (state, action) => {
-      const { board } = action.payload;
+      const board = action.payload;
+      console.error('setBoard', board);
       state.board = typeof board === 'string' ? JSON.parse(board) : board;
     },
     setGameStatus: (state, action) => {

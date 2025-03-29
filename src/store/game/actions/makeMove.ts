@@ -2,6 +2,7 @@ import { AppDispatch } from '../../types';
 import { gameService } from '../../../services/api';
 import { MakeMoveRequest } from '../../../types';
 import { gameSlice } from '../index';
+import { makePCMove } from './makePCMove';
 
 type MakeMove = (payload: MakeMoveRequest) => (dispatch: AppDispatch) => Promise<void>;
 
@@ -19,6 +20,7 @@ export const makeMove: MakeMove = (payload) => {
       });
       dispatch(gameSlice.actions.setBoard(engineMove.board));
       dispatch(gameSlice.actions.setGameStatus(engineMove.gameStatus));
+      dispatch(makePCMove());
       console.error('pcMoveState', engineMove);
     } catch (error) {
       console.error(error, error.data, error.response.data);
