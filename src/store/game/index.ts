@@ -23,6 +23,7 @@ export const gameSlice = createSlice({
     setSessionId: (state, action) => {
       state.sessionId = action.payload;
     },
+    resetGameSession: () => initialState,
   },
 });
 

@@ -7,7 +7,7 @@ const BackgroundImage: React.FC = () => {
   return (
     <>
       <ImageBackground source={Images.GameBackground} style={styles.bgImage} resizeMode="cover" />
-      <BlurView tint={'dark'} intensity={25} style={styles.bgOverlay} />
+      <BlurView tint={'dark'} intensity={70} style={styles.bgOverlay} />
     </>
   );
 };

@@ -1,15 +1,15 @@
 export const colors = {
-  primary: 'white',
-  secondary: 'white',
-  background: 'transparent',
+  primary: '#4A90E2FF',
+  secondary: '#DEE2E6',
+  background: '#ffffff',
   backgroundDark: '#000',
-  surface: '#5c0606',
-  transparentWhite: '#5c0606',
-  transparentBlack: '#5c0606',
+  surface: '#4B4A4BFF',
+  transparentWhite: '#4B4A4BFF',
+  transparentBlack: '#4B4A4BFF',
   text: {
     primary: 'white',
     secondary: '#b3b5b6',
-    light: '#FFFFFF',
+    light: '#1e2022',
   },
   error: '#DC3545',
   success: '#28A745',
@@ -20,8 +20,8 @@ export const colors = {
     focus: 'white',
   },
   button: {
-    primary: 'white',
-    secondary: '#b3b5b6',
+    primary: '#4A90E2FF',
+    secondary: '#DEE2E6',
     text: '#FFFFFF',
   },
 } as const;

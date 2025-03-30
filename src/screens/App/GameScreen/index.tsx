@@ -1,44 +1,26 @@
-import React, { useCallback, useMemo } from 'react';
+import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Text } from 'react-native-paper';
 import Board from './components/Board';
 import { colors } from '../../../theme/colors';
 import { useGameActions } from '../../../store/game/useGameActions';
 import { useAppSelector } from '../../../store';
-import { GameStatus, Player } from '../../../types';
 import Icon from 'react-native-vector-icons/Feather';
-import { useAuth } from '../../../context/AuthContext';
 import { BlurView } from 'expo-blur';
 import BackgroundImage from '../../../components/BackgroundImage';
+import GameResultModal from './components/GameResultModal';
+import TurnSelectionModal from './components/TurnSelectionModal';
 
 const GameScreen: React.FC = () => {
-  const { createNewSession, makeMove } = useGameActions();
+  const { makeMove } = useGameActions();
 
-  const { sessionId, board, winner, status, currentPlayer } = useAppSelector((state) => state.game);
-  const { user } = useAuth();
+  const { sessionId, board, winner, currentPlayer } = useAppSelector((state) => state.game);
 
-  const setupNewGame = useCallback(() => {
-    createNewSession(false);
-  }, []);
-
-  const statusText = useMemo(() => {
-    if (!sessionId) {
-      return 'Lets start a new game!';
-    }
-    const playerName = currentPlayer === Player.O ? user.name : 'AI';
-    if (status === GameStatus.ONGOING) {
-      return `${playerName}'s turn`;
-    }
-    if (!!winner) {
-      return `${winner} wins!`;
-    }
-    if (!status) {
-      return 'Game is still ongoing';
-    }
-    return `It's a draw!`;
-  }, [status, currentPlayer]);
+  const [showTurnSelectionModal, setShowTurnSelectionModal] = React.useState(false);
 
   const handleCellPress = (index: number) => {
+    if (!sessionId) {
+      return startGame();
+    }
     const row = Math.floor(index / 3);
     const col = index % 3;
     if (winner || !!board[row][col]) {
@@ -54,21 +36,15 @@ const GameScreen: React.FC = () => {
     });
   };
 
-  const resetGame = () => {
-    setupNewGame();
+  const startGame = () => {
+    setShowTurnSelectionModal(true);
   };
 
   return (
     <View style={styles.container}>
       <BackgroundImage />
-      <Text variant="titleLarge" style={styles.title}>
-        Tic Tac Toe
-      </Text>
-      <Text variant="bodyLarge" style={styles.status}>
-        {statusText}
-      </Text>
       <Board board={board.flat(1)} onCellPress={handleCellPress} />
-      <TouchableOpacity onPress={resetGame}>
+      <TouchableOpacity onPress={startGame}>
         <BlurView tint={'light'} intensity={80} style={styles.gameAction}>
           <Icon
             name={sessionId && !winner ? 'rotate-cw' : 'play-circle'}
@@ -77,6 +53,11 @@ const GameScreen: React.FC = () => {
           />
         </BlurView>
       </TouchableOpacity>
+      <GameResultModal />
+      <TurnSelectionModal
+        visible={showTurnSelectionModal}
+        onClose={() => setShowTurnSelectionModal(false)}
+      />
     </View>
   );
 };
