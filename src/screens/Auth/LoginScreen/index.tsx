@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { REGEX } from '../../../utils/constants';
 import { useAuthActions } from '../../../store/auth/useAuthActions';
 import { colors } from '../../../theme/colors';
+import BackgroundImage from '../../../components/BackgroundImage';
+import { BlurView } from 'expo-blur';
 
 const LoginScreen = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
@@ -36,8 +38,9 @@ const LoginScreen = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <BackgroundImage />
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.card}>
+        <BlurView tint={'light'} intensity={60} style={styles.card}>
           <Text variant="headlineMedium" style={styles.title}>
             Welcome Back
           </Text>
@@ -49,7 +52,6 @@ const LoginScreen = ({ navigation }: any) => {
             label="Email"
             value={email}
             onChangeText={setEmail}
-            mode="outlined"
             keyboardType="email-address"
             autoCapitalize="none"
             error={!!errors.email}
@@ -65,7 +67,6 @@ const LoginScreen = ({ navigation }: any) => {
             label="Password"
             value={password}
             onChangeText={setPassword}
-            mode="outlined"
             secureTextEntry
             error={!!errors.password}
             style={styles.input}
@@ -90,7 +91,7 @@ const LoginScreen = ({ navigation }: any) => {
               Sign Up
             </Text>
           </View>
-        </View>
+        </BlurView>
       </ScrollView>
     </SafeAreaView>
   );
@@ -104,9 +105,7 @@ const styles = StyleSheet.create({
     padding: 20,
     margin: 16,
     borderRadius: 12,
-    backgroundColor: colors.background,
-    elevation: 2,
-    boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+    overflow: 'hidden',
   },
   scrollContent: {
     flexGrow: 1,
@@ -122,6 +121,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginBottom: 8,
+    backgroundColor: colors.transparent,
   },
   errorText: {
     color: colors.error,

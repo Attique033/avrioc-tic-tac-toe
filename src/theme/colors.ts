@@ -1,9 +1,10 @@
 export const colors = {
   primary: '#4A90E2FF',
   secondary: '#DEE2E6',
-  background: '#ffffff',
+  background: 'transparent',
   backgroundDark: '#000',
   surface: '#4B4A4BFF',
+  transparent: 'transparent',
   transparentWhite: '#4B4A4BFF',
   transparentBlack: '#4B4A4BFF',
   text: {
@@ -15,9 +16,8 @@ export const colors = {
   success: '#28A745',
   border: '#DEE2E6',
   input: {
-    background: '#FFFFFF',
-    border: '#DEE2E6',
-    focus: 'white',
+    background: 'trasparent',
+    border: 'trasparent',
   },
   button: {
     primary: '#4A90E2FF',

@@ -69,7 +69,7 @@ export const gameService = {
   },
 
   getStats: async () => {
-    const response = await api.get<{ stats: GameStats }>('/game/stats');
+    const response = await api.get<{ stats: GameStats }>('/stats');
     return response.data;
   },
 
