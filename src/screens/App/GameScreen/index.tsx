@@ -8,15 +8,20 @@ import BackgroundImage from '../../../components/BackgroundImage';
 import GameResultModal from './components/GameResultModal';
 import TurnSelectionModal from './components/TurnSelectionModal';
 import Button from "../../../components/Button";
+import {Player} from "../../../types";
 
 const GameScreen: React.FC = () => {
     const {makeMove, createSessionWithPlayerMove} = useGameActions();
 
-    const {sessionId, board, winner} = useAppSelector((state) => state.game);
+    const {sessionId, board, winner, currentPlayer} = useAppSelector((state) => state.game);
 
     const [showTurnSelectionModal, setShowTurnSelectionModal] = React.useState(false);
 
     const handleCellPress = (index: number) => {
+
+        if (currentPlayer === Player.X) {
+            return;
+        }
 
         const row = Math.floor(index / 3);
         const col = index % 3;
