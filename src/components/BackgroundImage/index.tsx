@@ -1,32 +1,30 @@
-import { ImageBackground, StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
-import { Images } from '../../assets/images';
-import { BlurView } from 'expo-blur';
+import {LinearGradient} from "expo-linear-gradient";
+import {colors} from "../../theme/colors";
 
 const BackgroundImage: React.FC = () => {
-  return (
-    <>
-      <ImageBackground source={Images.GameBackground} style={styles.bgImage} resizeMode="cover" />
-      <BlurView tint={'dark'} intensity={70} style={styles.bgOverlay} />
-    </>
-  );
+    return (
+        <LinearGradient start={[0, 0.5]} end={[1, 1]} dither style={styles.bgImage}
+                        colors={colors.bgGradient}/>
+    );
 };
 
 const styles = StyleSheet.create({
-  bgImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
-  bgOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  },
+    bgImage: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
+    bgOverlay: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    },
 });
 
 export default BackgroundImage;
