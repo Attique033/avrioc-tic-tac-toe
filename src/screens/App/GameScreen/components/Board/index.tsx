@@ -15,7 +15,7 @@ const Board: React.FC<BoardProps> = ({ startNewGame }) => {
       {board
         .flat(1)
         ?.map((cell, index) => (
-          <Cell cell={cell} index={index} startNewGame={startNewGame} />
+          <Cell cell={cell} key={index} index={index} startNewGame={startNewGame} />
         ))}
     </View>
   );

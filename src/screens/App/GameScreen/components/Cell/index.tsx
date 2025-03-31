@@ -10,6 +10,7 @@ import { useAppSelector } from '../../../../../store';
 type CellProps = {
   cell: number;
   index: number;
+  key: number;
   startNewGame: () => void;
 };
 
@@ -61,7 +62,7 @@ const Cell: React.FC<CellProps> = ({ cell, index, startNewGame }) => {
     <BlurView
       tint={'light'}
       intensity={80}
-      key={`${index}`}
+      key={index}
       style={[styles.cell, { width: cellSize, height: cellSize }]}
       onTouchEnd={() => onCellPress(index)}
     >

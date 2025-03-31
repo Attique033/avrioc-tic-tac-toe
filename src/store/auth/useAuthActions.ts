@@ -4,6 +4,8 @@ import { LoginUserRequest, RegisterUserRequest, UserSession } from '../../types'
 import { useAppDispatch } from '../index';
 import { loginUser, logoutUser, registerUser } from './actions';
 import { authSlice } from '.';
+import { gameSlice } from '../game';
+import { statsSlice } from '../stats';
 
 export const useAuthActions = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +21,8 @@ export const useAuthActions = () => {
         dispatch(registerUser(params));
       },
       logoutUser: () => {
+        dispatch(gameSlice.actions.resetGameSession());
+        dispatch(statsSlice.actions.resetStats());
         dispatch(logoutUser());
       },
     };

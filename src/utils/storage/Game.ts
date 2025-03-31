@@ -2,7 +2,7 @@ import { getSecureStorage, removeSecureStorage, setSecureStorage } from '../../s
 import { StorageKeys } from './types';
 
 export const saveGameSessionId = async (value: string) => {
-  await setSecureStorage(StorageKeys.TOKEN, value);
+  await setSecureStorage(StorageKeys.GAME_SESSION_ID, value);
 };
 
 export const getGameSessionId = async () => {

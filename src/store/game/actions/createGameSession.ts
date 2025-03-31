@@ -4,6 +4,7 @@ import { gameSlice } from '../index';
 import { notificationSlice } from '../../notification';
 import { NotificationType } from '../../../types';
 import { makePCMove } from './index';
+import { saveGameSessionId } from '../../../utils/storage/Game';
 
 type CreateGameSession = (startWithPlayer: boolean) => (dispatch: AppDispatch) => Promise<void>;
 
@@ -12,6 +13,7 @@ const createGameSession: CreateGameSession = (startWithPlayer) => {
     try {
       dispatch(gameSlice.actions.resetGameSession());
       const data = await gameService.createGameSession(startWithPlayer);
+      await saveGameSessionId(data.id.toString());
       dispatch(gameSlice.actions.setSessionId(data.id));
       if (!startWithPlayer) {
         return dispatch(makePCMove());

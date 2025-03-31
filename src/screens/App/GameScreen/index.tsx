@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Board from './components/Board';
 import { colors } from '../../../theme/colors';
@@ -6,9 +6,28 @@ import Background from '../../../components/Background';
 import GameResultModal from './components/GameResultModal';
 import TurnSelectionModal from './components/TurnSelectionModal';
 import Button from '../../../components/Button';
+import { useAppSelector } from '../../../store';
+import { useGameActions } from '../../../store/game/useGameActions';
+import { getGameSessionId } from '../../../utils/storage/Game';
 
 const GameScreen: React.FC = () => {
-  const [showTurnSelectionModal, setShowTurnSelectionModal] = React.useState(true);
+  const [showTurnSelectionModal, setShowTurnSelectionModal] = React.useState(false);
+
+  const { user } = useAppSelector(state => state.auth);
+
+  const { restoreGameSession } = useGameActions();
+
+  useEffect(() => {
+    getGameSessionId().then(sessionId => {
+      if (user?.id && !!sessionId) {
+        restoreGameSession(sessionId);
+      } else {
+        setShowTurnSelectionModal(true);
+      }
+    }).catch(() => {
+      setShowTurnSelectionModal(true);
+    });
+  }, [restoreGameSession, user?.id]);
 
   const startGame = () => {
     setShowTurnSelectionModal(true);
