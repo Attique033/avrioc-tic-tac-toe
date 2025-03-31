@@ -17,7 +17,8 @@ const checkGameState: CheckGameState = () => {
         dispatch(makePCMove());
       }
     } catch (error) {
-      const errorMessage = error?.response?.data?.error || error?.message || 'Something went wrong';
+      const errorMessage =
+        error?.response?.data?.error || error?.message || 'Something went wrong';
       dispatch(
         notificationSlice.actions.setNotification({
           title: 'Oops! That\'s an error',

@@ -48,7 +48,10 @@ const RegisterScreen = ({ navigation }: any) => {
       return;
     }
     if (password.length < 8) {
-      setErrors((prev) => ({ ...prev, password: 'Password must be at least 8 characters long' }));
+      setErrors((prev) => ({
+        ...prev,
+        password: 'Password must be at least 8 characters long',
+      }));
       return;
     }
     if (!confirmPassword) {
@@ -132,13 +135,15 @@ const RegisterScreen = ({ navigation }: any) => {
             </Text>
           ) : null}
 
-          <Button text={'Sign Up'} onPress={handleRegister}>
-
-          </Button>
+          <Button text={'Sign Up'} onPress={handleRegister}></Button>
 
           <View style={styles.footer}>
             <Text variant="bodyMedium">Already have an account? </Text>
-            <Text variant="bodyMedium" style={styles.link} onPress={() => navigation.goBack()}>
+            <Text
+              variant="bodyMedium"
+              style={styles.link}
+              onPress={() => navigation.goBack()}
+            >
               Sign In
             </Text>
           </View>

@@ -11,19 +11,17 @@ type CellProps = {
   cell: number;
   index: number;
   startNewGame: () => void;
-}
+};
 
 const { width } = Dimensions.get('window');
 const cellSize = width / 3 - width * 0.07;
 
 const Cell: React.FC<CellProps> = ({ cell, index, startNewGame }) => {
-
   const { makeMove } = useGameActions();
 
   const { sessionId, board, winner, currentPlayer } = useAppSelector((state) => state.game);
 
   const onCellPress = (index: number) => {
-
     if (!sessionId) {
       return startNewGame();
     }

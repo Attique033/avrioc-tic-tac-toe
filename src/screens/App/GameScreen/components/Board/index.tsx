@@ -5,17 +5,18 @@ import Cell from '../Cell';
 
 type BoardProps = {
   startNewGame: () => void;
-}
+};
 
 const Board: React.FC<BoardProps> = ({ startNewGame }) => {
-
   const { board } = useAppSelector((state) => state.game);
 
   return (
     <View style={styles.grid}>
-      {board.flat(1)?.map((cell, index) => (
-        <Cell cell={cell} index={index} startNewGame={startNewGame} />
-      ))}
+      {board
+        .flat(1)
+        ?.map((cell, index) => (
+          <Cell cell={cell} index={index} startNewGame={startNewGame} />
+        ))}
     </View>
   );
 };

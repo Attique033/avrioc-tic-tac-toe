@@ -1,14 +1,14 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import {
-  EngineMoveResponse,
-  GameSession,
-  GameState,
-  GameStats,
-  GameStatus,
-  LoginUserRequest,
-  MakeMoveRequest,
-  RegisterUserRequest,
-  UserSession,
+    EngineMoveResponse,
+    GameSession,
+    GameState,
+    GameStats,
+    GameStatus,
+    LoginUserRequest,
+    MakeMoveRequest,
+    RegisterUserRequest,
+    UserSession,
 } from '../types';
 import { config as envConfig } from '../config';
 import { getSessionToken } from '../utils/storage/Auth';
@@ -51,13 +51,16 @@ export const gameService = {
   makeMove: async (payload: MakeMoveRequest) => {
     const response: AxiosResponse<{ status: GameStatus }> = await api.post(
       '/game/player_move',
-      payload
+      payload,
     );
     return response.data;
   },
 
   pcMove: async (payload: MakeMoveRequest) => {
-    const response: AxiosResponse<EngineMoveResponse> = await api.post('/game/pc_move', payload);
+    const response: AxiosResponse<EngineMoveResponse> = await api.post(
+      '/game/pc_move',
+      payload,
+    );
     return response.data;
   },
 
@@ -78,7 +81,7 @@ export const gameService = {
       '/game/create_game_session',
       {
         startWithPlayer: true,
-      }
+      },
     );
     return response.data;
   },

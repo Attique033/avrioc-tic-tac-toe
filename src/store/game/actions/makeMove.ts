@@ -12,7 +12,8 @@ const makeMove: MakeMove = (payload) => {
       await gameService.makeMove(payload);
       dispatch(checkGameState());
     } catch (error) {
-      const errorMessage = error?.response?.data?.error || error?.message || 'Something went wrong';
+      const errorMessage =
+        error?.response?.data?.error || error?.message || 'Something went wrong';
       dispatch(
         notificationSlice.actions.setNotification({
           title: 'That move failed',

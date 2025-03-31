@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native';
 type ButtonProps = {
   text: string;
   onPress: () => void;
-}
+};
 
 const Button: React.FC<ButtonProps> = ({ text, onPress }) => {
   return (
@@ -16,7 +16,6 @@ const Button: React.FC<ButtonProps> = ({ text, onPress }) => {
         <Text style={styles.buttonText}>{text}</Text>
       </BlurView>
     </TouchableRipple>
-
   );
 };
 

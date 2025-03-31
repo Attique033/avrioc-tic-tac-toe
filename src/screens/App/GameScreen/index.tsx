@@ -8,7 +8,6 @@ import TurnSelectionModal from './components/TurnSelectionModal';
 import Button from '../../../components/Button';
 
 const GameScreen: React.FC = () => {
-
   const [showTurnSelectionModal, setShowTurnSelectionModal] = React.useState(true);
 
   const startGame = () => {

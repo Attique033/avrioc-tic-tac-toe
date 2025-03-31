@@ -5,8 +5,13 @@ import { colors } from '../../theme/colors';
 
 const Background: React.FC = () => {
   return (
-    <LinearGradient start={[0, 0.5]} end={[1, 1]} dither style={styles.bgImage}
-                    colors={colors.bgGradient} />
+    <LinearGradient
+      start={[0, 0.5]}
+      end={[1, 1]}
+      dither
+      style={styles.bgImage}
+      colors={colors.bgGradient}
+    />
   );
 };
 

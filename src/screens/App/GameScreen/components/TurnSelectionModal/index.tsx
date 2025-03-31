@@ -14,10 +14,13 @@ interface TurnSelectionModalProps {
 const TurnSelectionModal: React.FC<TurnSelectionModalProps> = ({ visible, onClose }) => {
   const { createNewSession } = useGameActions();
 
-  const handlePlayFirst = useCallback((userFirst = false) => {
-    createNewSession(userFirst);
-    onClose();
-  }, [createNewSession, onClose]);
+  const handlePlayFirst = useCallback(
+    (userFirst = false) => {
+      createNewSession(userFirst);
+      onClose();
+    },
+    [createNewSession, onClose],
+  );
 
   return (
     <Modal
@@ -33,10 +36,7 @@ const TurnSelectionModal: React.FC<TurnSelectionModalProps> = ({ visible, onClos
         </Text>
       </View>
       <View style={styles.selectionRow}>
-        <Button
-          text={'No'}
-          onPress={() => handlePlayFirst()}
-        />
+        <Button text={'No'} onPress={() => handlePlayFirst()} />
         <Button text={'Yes'} onPress={() => handlePlayFirst(true)} />
       </View>
     </Modal>

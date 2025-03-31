@@ -18,7 +18,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, loginUser, registerUser, logoutUser, user }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, loginUser, registerUser, logoutUser, user }}
+    >
       {children}
     </AuthContext.Provider>
   );
