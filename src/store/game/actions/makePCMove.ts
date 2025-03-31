@@ -1,6 +1,6 @@
 import {AppDispatch, GetState} from '../../types';
 import {gameService} from '../../../services/api';
-import {checkGameState} from './checkGameStats';
+import {checkGameState} from './checkGameState';
 import {notificationSlice} from '../../notification';
 import {NotificationType} from '../../../types';
 

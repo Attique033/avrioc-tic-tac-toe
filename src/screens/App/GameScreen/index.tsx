@@ -11,13 +11,17 @@ import Button from "../../../components/Button";
 import {Player} from "../../../types";
 
 const GameScreen: React.FC = () => {
-    const {makeMove, createSessionWithPlayerMove} = useGameActions();
+    const {makeMove} = useGameActions();
 
     const {sessionId, board, winner, currentPlayer} = useAppSelector((state) => state.game);
 
-    const [showTurnSelectionModal, setShowTurnSelectionModal] = React.useState(false);
+    const [showTurnSelectionModal, setShowTurnSelectionModal] = React.useState(true);
 
     const handleCellPress = (index: number) => {
+
+        if (!sessionId) {
+            return setShowTurnSelectionModal(true);
+        }
 
         if (currentPlayer === Player.X) {
             return;
@@ -31,10 +35,6 @@ const GameScreen: React.FC = () => {
         const newBoard = board.map((r, rowIndex) =>
             r.map((cell, colIndex) => (rowIndex === row && colIndex === col ? -1 : cell))
         );
-
-        if (!sessionId) {
-            return createSessionWithPlayerMove(newBoard);
-        }
 
         makeMove({
             board: newBoard,

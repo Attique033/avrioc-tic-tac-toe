@@ -3,25 +3,18 @@ import {gameService} from '../../../services/api';
 import {gameSlice} from '../index';
 import {makePCMove} from './makePCMove';
 import {notificationSlice} from '../../notification';
-import {Board, NotificationType} from '../../../types';
-import {makeMove} from "./makeMove";
+import {NotificationType} from '../../../types';
 
-type CreateGameSession = (startWithPlayer: boolean, board?: Board) => (dispatch: AppDispatch) => Promise<void>;
+type CreateGameSession = (startWithPlayer: boolean) => (dispatch: AppDispatch) => Promise<void>;
 
-export const createGameSession: CreateGameSession = (startWithPlayer, board) => {
+export const createGameSession: CreateGameSession = (startWithPlayer) => {
     return async (dispatch) => {
         try {
+            dispatch(gameSlice.actions.resetGameSession());
             const data = await gameService.createGameSession(startWithPlayer);
             dispatch(gameSlice.actions.setSessionId(data.id));
-            dispatch(gameSlice.actions.setGameState(data));
-            if (startWithPlayer && board) {
-
-                dispatch(makeMove({
-                    sessionId: data.id.toString(),
-                    board
-                }))
-            } else {
-                dispatch(makePCMove())
+            if (!startWithPlayer) {
+                return dispatch(makePCMove())
             }
         } catch (error) {
             const errorMessage = error?.response?.data?.error || error?.message || 'Something went wrong';
