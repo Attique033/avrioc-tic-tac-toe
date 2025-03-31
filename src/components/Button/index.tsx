@@ -24,15 +24,16 @@ const styles = StyleSheet.create({
     container: {
         marginVertical: 16,
         borderRadius: 12,
-        width: '100%',
         overflow: 'hidden',
+        flexGrow: 1,
+        maxHeight: 60,
+        marginHorizontal: 16,
     },
     button: {
         padding: 20,
         borderRadius: 12,
         alignItems: 'center',
         justifyContent: 'center',
-        width: '100%',
     },
     buttonText: {
         color: '#ffffff',
