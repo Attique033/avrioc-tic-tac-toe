@@ -54,7 +54,7 @@ const NotificationBanner: React.FC = () => {
   if (!notification || !notification?.title) return null;
 
   return (
-    <View style={[style.container, { display: notification ? 'flex' : 'none' }]}>
+    <View style={[style.container, { display: notification ? 'flex' : 'none' }]} testID="notification-banner">
       <Surface style={[style.banner, { backgroundColor: getBackgroundColor() }]}>
         <View style={style.content}>
           <IconButton icon={getIcon()} size={24} iconColor="white" style={style.icon} />
@@ -77,6 +77,7 @@ const NotificationBanner: React.FC = () => {
           iconColor="white"
           onPress={dismiss}
           style={style.closeButton}
+          testID="notification-close-button"
         />
       </Surface>
     </View>
