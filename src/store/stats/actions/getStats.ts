@@ -6,7 +6,7 @@ import { notificationSlice } from '../../notification';
 
 type GetStats = () => (dispatch: AppDispatch) => Promise<void>;
 
-export const getStats: GetStats = () => {
+const getStats: GetStats = () => {
   return async (dispatch) => {
     try {
       const data = await gameService.getStats();
@@ -18,8 +18,10 @@ export const getStats: GetStats = () => {
           title: 'Stats fetching failed',
           message: errorMessage,
           type: NotificationType.ERROR,
-        })
+        }),
       );
     }
   };
 };
+
+export default getStats;

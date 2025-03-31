@@ -6,7 +6,7 @@ import { useGameActions } from '../../../../../store/game/useGameActions';
 import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors } from '../../../../../theme/colors';
-import BackgroundImage from '../../../../../components/BackgroundImage';
+import Background from '../../../../../components/Background';
 
 const GameResultModal = () => {
   const { winner, status, currentPlayer } = useAppSelector((state) => state.game);
@@ -14,7 +14,9 @@ const GameResultModal = () => {
 
   const { resetGameSession } = useGameActions();
 
-  const visible = !!winner || status === GameStatus.DRAW;
+  const visible = useMemo(() => {
+    return !!winner || status === GameStatus.DRAW;
+  }, [status, winner]);
 
   const result = useMemo(() => {
     const playerName = currentPlayer === Player.X ? user.name : 'AI';
@@ -31,7 +33,7 @@ const GameResultModal = () => {
       dismissable
       contentContainerStyle={styles.modalContainer}
     >
-      <BackgroundImage />
+      <Background />
       <View style={styles.header}>
         <Text variant="bodyLarge" style={styles.title}>
           Game Result!

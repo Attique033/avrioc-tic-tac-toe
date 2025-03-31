@@ -9,7 +9,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const PROGRESS_DURATION = 3000;
 
-export const NotificationBanner: React.FC = () => {
+const NotificationBanner: React.FC = () => {
   const { notification } = useAppSelector((state) => state.notification);
 
   const { resetNotification } = useNotificationActions();
@@ -132,3 +132,5 @@ const styles = (safeAreaTop: number) =>
       padding: 0,
     },
   });
+
+export default NotificationBanner;

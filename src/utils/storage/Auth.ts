@@ -16,11 +16,6 @@ export const getUserData = async () => {
   return user ? JSON.parse(user) : null;
 };
 
-export const getUserId = async () => {
-  const user = await getUserData();
-  return user ? user.id : null;
-};
-
 export const getSessionToken = async () => {
   return await getSecureStorage(StorageKeys.TOKEN);
 };
