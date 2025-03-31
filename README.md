@@ -39,8 +39,8 @@ proficiency in React Native development, state management, API integration, and 
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/Attique033/avrioc-tic-tac-toe
-cd avrioc-tic-tac-toe
+git clone https://github.com/Attique033/avrioc-tic-tac-toe-mobile
+cd avrioc-tic-tac-toe-mobile
 ```
 
 2. Install dependencies:
