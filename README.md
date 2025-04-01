@@ -55,7 +55,10 @@ yarn install
 yarn start
 ```
 
-4. Run on your preferred platform:
+4. Update the API URL in `src/config.ts` to point to your backend server.
+
+
+5. Run on your preferred platform:
 
 - iOS: `yarn ios`
 - Android: `yarn android`
