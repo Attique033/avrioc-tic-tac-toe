@@ -1,17 +1,18 @@
-import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import {
-    EngineMoveResponse,
-    GameSession,
-    GameState,
-    GameStats,
-    GameStatus,
-    LoginUserRequest,
-    MakeMoveRequest,
-    RegisterUserRequest,
-    UserSession,
+  EngineMoveResponse,
+  GameSession,
+  GameState,
+  GameStats,
+  GameStatus,
+  LoginUserRequest,
+  MakeMoveRequest,
+  RegisterUserRequest,
+  UserSession,
 } from '../types';
 import { config as envConfig } from '../config';
-import { getSessionToken } from '../utils/storage/Auth';
+import { clearSessionToken, getSessionToken } from '../utils/storage/Auth';
+import * as Updates from 'expo-updates';
 
 const api = axios.create({
   baseURL: envConfig.apiUrl,
@@ -27,6 +28,17 @@ api.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
   }
   return config;
 });
+
+api.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  async (error: AxiosError) => {
+    if (error.response.status === 401) {
+      await clearSessionToken();
+      await Updates.reloadAsync();
+    }
+    return Promise.reject(error);
+  },
+);
 
 export const authService = {
   login: async (params: LoginUserRequest): Promise<UserSession> => {
