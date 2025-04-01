@@ -26,10 +26,6 @@ const StatsScreen: React.FC = () => {
 
   useFocusEffect(fetchStats);
 
-  useFocusEffect(() => {
-    fetchStats();
-  });
-
   return (
     <View style={style.container}>
       <Background />
