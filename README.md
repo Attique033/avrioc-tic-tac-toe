@@ -61,6 +61,10 @@ yarn start
 - Android: `yarn android`
 - Web: `yarn web`
 
+## Demo video
+
+https://drive.google.com/file/d/1gZnmCuqBGkQz6Gk13k5VmyfdoqVsLQi2/view?usp=share_link
+
 ## Project Structure
 
 ```
