@@ -7,10 +7,15 @@ import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors } from '../../../../../theme/colors';
 import Background from '../../../../../components/Background';
+import TurnSelectionModal from '../TurnSelectionModal';
+import Button from '../../../../../components/Button';
 
 const GameResultModal = () => {
+
+  const [askingForTurn, setAskingForTurn] = React.useState(false);
   const { winner, status, currentPlayer } = useAppSelector((state) => state.game);
   const { user } = useAuth();
+
 
   const { resetGameSession } = useGameActions();
 
@@ -27,21 +32,28 @@ const GameResultModal = () => {
   }, [status, currentPlayer]);
 
   return (
-    <Modal
-      visible={visible}
-      onDismiss={resetGameSession}
-      dismissable
-      contentContainerStyle={styles.modalContainer}
-    >
-      <Background />
-      <View style={styles.header}>
-        <Text variant="bodyLarge" style={styles.title}>
-          Game Result!
-        </Text>
-        <IconButton icon="close" size={20} iconColor="white" onPress={resetGameSession} />
-      </View>
-      <Text style={styles.body}>{`Hurray! ${result}`}</Text>
-    </Modal>
+    <>
+      <Modal
+        visible={visible}
+        onDismiss={resetGameSession}
+        dismissable
+        contentContainerStyle={styles.modalContainer}
+      >
+        <Background />
+        <View style={styles.header}>
+          <Text variant="bodyLarge" style={styles.title}>
+            Game Result!
+          </Text>
+          <IconButton icon="close" size={20} iconColor="white" onPress={resetGameSession} />
+        </View>
+        <Text style={styles.body}>{`Hurray! ${result}`}</Text>
+        <View style={styles.selectionRow}>
+          <Button text={'Start new game'} onPress={() => setAskingForTurn(true)} />
+        </View>
+      </Modal>
+      <TurnSelectionModal visible={askingForTurn} onClose={() => setAskingForTurn(false)} />
+    </>
+
   );
 };
 
@@ -66,6 +78,12 @@ const styles = StyleSheet.create({
   body: {
     marginVertical: 12,
     textAlign: 'center',
+  },
+  selectionRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginTop: 20,
   },
 });
 

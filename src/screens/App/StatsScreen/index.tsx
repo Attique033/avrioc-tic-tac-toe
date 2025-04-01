@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import Button from '../../../components/Button';
@@ -9,6 +9,7 @@ import { useAppSelector } from '../../../store';
 import { BlurView } from 'expo-blur';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useAuthActions } from '../../../store/auth/useAuthActions';
+import { useFocusEffect } from '@react-navigation/native';
 
 const StatsScreen: React.FC = () => {
   const { totalGames, draws, losses, wins } = useAppSelector((state) => state.stats);
@@ -19,9 +20,15 @@ const StatsScreen: React.FC = () => {
 
   const style = styles(bottomBarHeight);
 
-  useEffect(() => {
+  const fetchStats = useCallback(() => {
     getStats();
   }, [getStats]);
+
+  useFocusEffect(fetchStats);
+
+  useFocusEffect(() => {
+    fetchStats();
+  });
 
   return (
     <View style={style.container}>
