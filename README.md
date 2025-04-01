@@ -66,6 +66,8 @@ yarn start
 
 ## Demo video
 
+https://github.com/user-attachments/assets/1687d83d-1ddc-4874-ace3-c13f9a988044
+
 https://drive.google.com/file/d/1gZnmCuqBGkQz6Gk13k5VmyfdoqVsLQi2/view?usp=share_link
 
 ## Project Structure
